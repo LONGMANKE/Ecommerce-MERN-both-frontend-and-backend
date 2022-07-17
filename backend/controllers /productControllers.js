@@ -1,6 +1,7 @@
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorhandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors")
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ApiFeatures = require("../utils/apifeatures");
 
 //create A Product --Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
@@ -14,17 +15,32 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get All Products
-exports.getAllProducts =catchAsyncErrors( async (req, res) => {
+exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
-    const products = await Product.find();
+    const apiFeature = new ApiFeatures(Product.find(), req.query).search();
+    const products = await apiFeature.query;
+
+
+
+
     res.status(200).json({
         success: true,
         products,
 
     })
 });
+
+//This works collects all products 
+/*
+const products = await Product.find();
+res.status(200).json({
+    success: true,
+    products,
+
+})
+});*/
 //Get Product Details
-exports.getProductDetails = catchAsyncErrors (async (req, res, next) => {
+exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     //before using clustered error handling
     /*if (!product) {
@@ -44,7 +60,7 @@ exports.getProductDetails = catchAsyncErrors (async (req, res, next) => {
                 success: true,
                 product,
             }
-        ); 
+        );
     }
 
 }
@@ -79,7 +95,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 //Delete Product -- Admin
 
-exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id)
     /*   if (!product) {
