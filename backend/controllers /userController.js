@@ -26,13 +26,13 @@ exports.registerUser = catchAsyncErrors(async(req,res,next) =>{
 
 });
 });
-
+//
 //Login user
 exports.loginUser = catchAsyncErrors(async (req,res,next) =>{
     const{email,password}= req.body;
 
     //checking if user has given password 
     if(!email || !password){
-        
+
     }
 })
