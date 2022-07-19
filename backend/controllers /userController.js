@@ -2,6 +2,7 @@ const User = require("../models/userModel")
 
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const sendToken = require("../utils/jwtToken");
 
 exports.registerUser = catchAsyncErrors(async(req,res,next) =>{
     
@@ -17,7 +18,8 @@ exports.registerUser = catchAsyncErrors(async(req,res,next) =>{
     },
   });
   
-  const token = user.getJWTToken();
+  //before use of jwtToken in utils this was the code
+ /* const token = user.getJWTToken();
 
   res.status(201).json({
     success: true,
@@ -25,6 +27,13 @@ exports.registerUser = catchAsyncErrors(async(req,res,next) =>{
    //user,
 
 });
+*/
+//After
+
+sendToken(user, 201, res)
+
+
+
 });
 //
 //Login user
@@ -39,17 +48,24 @@ exports.loginUser = catchAsyncErrors(async (req,res,next) =>{
     if(!user){
         return next(new ErrorHandler("Invalid Email or Password", 401) )
     }
-    const isPasswordMatched =user.comparePassword(password);
+    const isPasswordMatched = user.comparePassword(password);
 
     if(!isPasswordMatched){
         return next(new ErrorHandler("Invalid Email or Password", 401))
     }
-    const token = user.getJWTToken();
+  
+ //before use of jwtToken in utils this was the code
+    /*  const token = user.getJWTToken();
 
     res.status(201).json({
       success: true,
      token,
      //user,
-  
+      
   });
+*/
+//from the jwtToken in utils
+sendToken(user, 200, res)
+
+ 
 })
