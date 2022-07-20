@@ -56,18 +56,18 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 
 
 });
-  //before use of jwtToken in utils this was the code
-  /*  const token = user.getJWTToken();
+//before use of jwtToken in utils this was the code
+/*  const token = user.getJWTToken();
 
-  res.status(201).json({
-    success: true,
-   token,
-   //user,
-    
+res.status(201).json({
+  success: true,
+ token,
+ //user,
+  
 });
 */
-  //from the jwtToken in utils
-  
+//from the jwtToken in utils
+
 
 
 
@@ -81,6 +81,24 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-   message: "Logged Out"
+    message: "Logged Out"
+  });
 });
-});
+
+
+//Forgot password
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404))
+  }
+  //Get resetPassword Token
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  const resetPasswordUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+
+  const message = `Your password reset token is :- \n\n`
+
+})
