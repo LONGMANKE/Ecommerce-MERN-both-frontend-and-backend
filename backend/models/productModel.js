@@ -54,7 +54,7 @@ const productSchema = mongoose.Schema({
             },
             rating:{
                 type:Number,
-                required:true
+                required:true,
             },
             comment:{
                 type: String,
@@ -62,6 +62,12 @@ const productSchema = mongoose.Schema({
             }
         }
     ],
+// the user id called 
+    user:{
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        require: true,
+    },
     createdAt:{
         type:Date,
         default: Date.now

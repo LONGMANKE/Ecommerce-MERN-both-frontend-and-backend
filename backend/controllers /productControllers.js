@@ -5,10 +5,10 @@ const ApiFeatures = require("../utils/apifeatures");
 
 //create A Product --Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+    req.body.user = req.user.id;
     const product = await Product.create(req.body);
-
     res.status(201).json({
-        success: true,
+        success: true, 
         product,
 
     })
@@ -16,8 +16,8 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
-    const resultPerPage = 5;
-    const productCount = await Product.countDocuments();
+    const resultPerPage = 8;
+    const productsCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(Product.find(), req.query)
         .search()
@@ -31,6 +31,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
     res.status(200).json({
         success: true,
         products,
+        productsCount
 
     })
 });
@@ -47,6 +48,8 @@ res.status(200).json({
 //Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
+    const productsCount = await Product.countDocuments();
+
     //before using clustered error handling
     /*if (!product) {
         res.status(500).json(
@@ -64,7 +67,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
             {
                 success: true,
                 product,
-                productCount,
+                productsCount,
             }
         );
     }
@@ -84,7 +87,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler("Product not found, 404"));
     }
-    else {
+    {
         product = await Product.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,

@@ -27,7 +27,7 @@ const server = app.listen(process.env.PORT, () => {
 
 
 // Unhandled rejection when the db doesn't connect
-process.on("unhandledRejection",(err) => {
+process.on("unhandledRejection", (err) => {
     console.log(`Error: ${err.message}`);
     console.log(`The server is shutting down due to unhanddled Promise rejection`);
 
@@ -51,3 +51,4 @@ app.use(express.json())
 app.use(cors())
 app.use('/app', routesUrls)
 app.listen(4000, () => console.log("server is up and running"))*/
+
