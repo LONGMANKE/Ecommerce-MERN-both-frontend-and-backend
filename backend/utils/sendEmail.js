@@ -5,9 +5,10 @@ const OAuth2 = require('google-auth-library');
 const sendEmail = async (options) => {
 
     const transporter = nodeMailer.createTransport({
+        port: process.env.SMPT_PORT,
         service: 'gmail',
         type: "SMTP",
-        host: "smtp.gmail.com",
+        host: process.env.SMPT_HOST,
         secure: true,
         auth: {
             
