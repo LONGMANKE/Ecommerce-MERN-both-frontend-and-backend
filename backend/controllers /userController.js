@@ -153,6 +153,42 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
 
   await user.save();
-    sendToken(user, 200, res);
+  sendToken(user, 200, res);
 
+})
+
+//Get user details
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id)
+
+  // we wont use this coz its implemented in the isauthor authenticated if(!user)
+  res.status(200).json({
+    success: true,
+    user,
+  })
+})
+ 
+//Update user password
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  
+  const user = await User.findById(req.user.id).select("+password");
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  }
+  if(req.body.newPassword !==req.body.confirmPassword){
+    return next(new ErrorHandler("Password doesn't match", 400));
+  }
+  user.password = req.body.newPassword;
+  await user.save();
+  sendToken(user, 200,res);
+
+
+  // we wont use this coz its implemented in the isauthor authenticated if(!user)
+  // res.status(200).json({
+  //   success: true,
+  //   user,
+  // })
 })

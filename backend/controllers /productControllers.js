@@ -48,6 +48,8 @@ res.status(200).json({
 //Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
+
+    ////check well on above code
     const productsCount = await Product.countDocuments();
 
     //before using clustered error handling
