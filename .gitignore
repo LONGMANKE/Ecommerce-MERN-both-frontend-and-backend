@@ -1,6 +1,12 @@
 node_modules/
+
+
+/home/kali/projects/mern/backend/config/config.env
+
 ./node_modules/
 
-/backend/config/config.env
+./backend/config/config
 
 ./backend/config/config.env
+
+/backend/config/config.env
