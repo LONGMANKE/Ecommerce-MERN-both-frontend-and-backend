@@ -167,10 +167,10 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     user,
   })
 })
- 
+
 //Update user password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-  
+
   const user = await User.findById(req.user.id).select("+password");
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
@@ -178,12 +178,12 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
   }
-  if(req.body.newPassword !==req.body.confirmPassword){
+  if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("Password doesn't match", 400));
   }
   user.password = req.body.newPassword;
   await user.save();
-  sendToken(user, 200,res);
+  sendToken(user, 200, res);
 
 
   // we wont use this coz its implemented in the isauthor authenticated if(!user)
@@ -192,3 +192,57 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   //   user,
   // })
 })
+
+//Update user profile
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  }
+
+  //we will add cloudinary later
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  })
+  //sendToken(user, 200,res);
+
+
+  res.status(200).json({
+    success: true,
+    user,
+  })
+})
+
+
+//get all users Admin
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+
+  })
+})
+//get single user Admin
+
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new ErrorHandler(`User doen't exist with id ${req.params.id}`));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+
+  })
+})
+
+
+
