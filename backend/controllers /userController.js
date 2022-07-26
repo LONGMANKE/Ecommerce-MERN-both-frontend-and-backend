@@ -3,7 +3,8 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail")
-const crypto = require("crypto")
+const crypto = require("crypto");
+const { findById } = require("../models/userModel");
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
   const { name, email, password } = req.body;
@@ -241,6 +242,47 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
     success: true,
     user,
 
+  })
+})
+
+//Update user role admin
+exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+
+  }
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  })
+  //sendToken(user, 200,res);
+
+
+  res.status(200).json({
+    success: true,
+  })
+})
+//Delete user Admin
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+
+const user = await User.findById(req.params.id)
+  //we will remove cloudinary later
+ if (!user) {
+    return next(new ErrorHandler(`User doen't exist with id ${req.params.id}`));
+  }
+
+  await user.remove();
+  //sendToken(user, 200,res);
+
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully"
   })
 })
 
