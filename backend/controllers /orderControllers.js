@@ -4,6 +4,8 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apifeatures");
 
+//Create new order
+
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
     const { 
@@ -32,3 +34,34 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         order,
     })
 })
+
+
+//get single order
+exports.newOrder = catchAsyncErrors(async (req, res, next) => {
+const order= await Order.FindById(req.params.id).populate(
+    "user",
+    "name email"
+    )
+if(!order){
+    return next(new ErrorHandler("Order not found with this Id", 404 ));
+}
+res.status(200).json({
+    success:true,
+    order,
+})
+})
+
+//get Logged in User orders
+exports.myOrder = catchAsyncErrors(async (req, res, next) => {
+    const order= await Order.FindById(req.params.id).populate(
+        "user",
+        "name email"
+        )
+    if(!order){
+        return next(new ErrorHandler("Order not found with this Id", 404 ));
+    }
+    res.status(200).json({
+        success:true,
+        order,
+    })
+    })
