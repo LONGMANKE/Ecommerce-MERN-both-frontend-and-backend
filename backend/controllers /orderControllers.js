@@ -37,14 +37,14 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
 
 //get single order
-exports.newOrder = catchAsyncErrors(async (req, res, next) => {
-const order= await Order.FindById(req.params.id).populate(
+exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
+const order= await Order.findById(req.params.id).populate(
     "user",
     "name email"
     )
 if(!order){
     return next(new ErrorHandler("Order not found with this Id", 404 ));
-}
+}  
 res.status(200).json({
     success:true,
     order,
@@ -52,16 +52,13 @@ res.status(200).json({
 })
 
 //get Logged in User orders
-exports.myOrder = catchAsyncErrors(async (req, res, next) => {
-    const order= await Order.FindById(req.params.id).populate(
-        "user",
-        "name email"
-        )
-    if(!order){
-        return next(new ErrorHandler("Order not found with this Id", 404 ));
-    }
+exports.myOrders = catchAsyncErrors(async (req, res, next) => { 
+    const orders= await Order.find({user:req.user._id});
+    // if(!order){
+    //     return next(new ErrorHandler("Order not found with this Id", 404 ));
+    // }
     res.status(200).json({
         success:true,
-        order,
+        orders,
     })
     })
