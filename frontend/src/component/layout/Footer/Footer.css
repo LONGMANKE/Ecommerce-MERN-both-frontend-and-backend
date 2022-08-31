@@ -1,0 +1,10 @@
+
+
+footer {
+    margin-top: 10vmax;
+    padding: 2vmax;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    display: flex;
+    align-items: center;
+  }
