@@ -4,7 +4,7 @@ import "./Home.css";
 import ProductCard from "./ProductCard.js";
 import MetaData from "../layout/MetaData";
 import {getProduct} from "../../actions/productAction";
-import{useSelector, useDispatch} from "react-redux"
+import{ useDispatch} from "react-redux"
 
 
 
@@ -15,7 +15,7 @@ const product = {
   _id: "Simoo"
 }
 
-const Home = () => {
+const  Home = () => {
 const dispatch = useDispatch();
 useEffect(() => {
 dispatch(getProduct())
