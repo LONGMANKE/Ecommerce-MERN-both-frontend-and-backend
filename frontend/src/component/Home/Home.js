@@ -6,7 +6,7 @@ import MetaData from "../layout/MetaData";
 import { getProduct } from "../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux"
 import Loader from '../layout/Loader/Loader';
-import { useAlert } from 'react-alert';
+// import { useAlert } from 'react-alert';
 
 
 
@@ -19,19 +19,23 @@ import { useAlert } from 'react-alert';
 // }
 
 const Home = () => {
-  const alert = useAlert()
+  // const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, products } = useSelector((state) => state.products);
+  const { loading,  products } = useSelector((state) => state.products);
 
-  useEffect(() => {
-    dispatch(getProduct())
-  }, [dispatch]);
+  useEffect(() => { 
+    // if (error) { 
+    //   return alert.error(error);
+    // }
+    dispatch(getProduct());
+  },
+    [dispatch]);
 
   return (
     <Fragment>
 
       {loading ? (
-        <Loader/>
+        <Loader />
       ) : (
         <Fragment>
           <MetaData title="LONGMANKE SHOP" />
@@ -49,7 +53,7 @@ const Home = () => {
 
           <div className="container" id="container">
 
-             {products &&
+            {products &&
               products.map((product) =>
                 <Product product={product} />
               )}
@@ -57,7 +61,7 @@ const Home = () => {
         </Fragment>)}
 
     </Fragment>
-
+ 
   );
 
 }
