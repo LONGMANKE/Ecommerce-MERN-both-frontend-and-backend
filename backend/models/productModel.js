@@ -20,65 +20,63 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    images: [
-        {
-            public_id: {
-                type: String,
-                required: true
-            },
-            url: {
-                type: String,
-                required: true
-            }
-        }
-    ],
-    category:{
-        type:String,
-        required:[true, "Please enter product category"]
+    images: {
+        public_id: {
+            type: String,
+            required: true
+        },
+        url: {
+            type: String,
+            required: true
+        },
     },
-    Stock:{
+    category: {
+        type: String,
+        required: [true, "Please enter product category"]
+    },
+    Stock: {
         type: Number,
-        require:[true, "Please enter product stock"],
-        maxLength:[4, "Stock cannot exceed 4 characters"],
+        require: [true, "Please enter product stock"],
+        maxLength: [4, "Stock cannot exceed 4 characters"],
         default: 1
     },
-    numOfReviews:{
+    numOfReviews: {
         type: Number,
-        default:0
+        default: 0
     },
     reviews: [
         {
-            user:{
+            user: {
                 type: mongoose.Schema.ObjectId,
                 ref: "User",
                 require: true,
             },
-            name:{
+            name: {
                 type: String,
                 required: true,
             },
-            rating:{
-                type:Number,
-                required:true,
+            rating: {
+                type: Number,
+                required: true,
             },
-            comment:{
+            comment: {
                 type: String,
                 required: true,
             }
         }
     ],
-// the user id called 
-    user:{
+    // the user id called 
+    user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
         require: true,
     },
-    createdAt:{
-        type:Date,
+    createdAt: {
+        type: Date,
         default: Date.now
     }
 
 
 })
 
-module.exports = mongoose.model ("Product", productSchema)
+module.exports = mongoose.model("Product", productSchema)
