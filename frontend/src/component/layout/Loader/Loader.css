@@ -10,9 +10,9 @@
 .loading>div {
     width: 10vmax;
     height: 10vmax;
-    border-bottom: 5px solid rgb(110, 110, 110);
+    border-bottom: 5px solid rgb(0, 0, 0);
     border-radius: 50%;
-    animation: loadingRotate 800ms;
+    animation: loadingRotate 800ms linear infinite;
 }
 
 @keyframes loadingRotate {

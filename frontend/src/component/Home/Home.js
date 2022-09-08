@@ -6,6 +6,7 @@ import MetaData from "../layout/MetaData";
 import { getProduct } from "../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux"
 import Loader from '../layout/Loader/Loader';
+import { useAlert } from 'react-alert';
 
 
 
@@ -18,6 +19,7 @@ import Loader from '../layout/Loader/Loader';
 // }
 
 const Home = () => {
+  const alert = useAlert()
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
 
