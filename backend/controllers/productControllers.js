@@ -52,7 +52,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
 
     ////check well on above code
-    const productsCount = await Product.countDocuments();
+    // const productsCount = await Product.countDocuments();
 
     //before using clustered error handling
     /*if (!product) {
@@ -63,15 +63,15 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
             }
         )
     }*/
-    if (!product) {
+    if (!product) { 
         return next(new ErrorHandler("Product not found, 404"));
     }
     else {
         res.status(200).json(
             {
                 success: true,
-                product,
-                productsCount,
+                product
+                
             }
         );
     }
@@ -99,7 +99,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
         });
         res.status(200).json({
             success: true,
-            product,
+            product
 
         })
     }

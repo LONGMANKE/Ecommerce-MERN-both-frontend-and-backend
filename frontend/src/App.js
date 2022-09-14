@@ -22,8 +22,8 @@ function App() {
   return (  
     <Router>
       <Header />
-      <Route extact path="/" component={Home} />
-      <Route extact path="/product/:id" component={ProductDetails} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/product/:id" component={ProductDetails} />
       <Footer/>
       </Router>
    
