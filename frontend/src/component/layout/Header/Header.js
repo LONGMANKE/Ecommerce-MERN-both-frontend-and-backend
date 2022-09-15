@@ -1,6 +1,10 @@
 import React from "react";
 import { ReactNavbar } from "overlay-navbar";
 import logo from "../../../images/logo.png";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SearchIcon from '@mui/icons-material/Search';
+
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const options = {
   burgerColorHover: "#eb4034",
@@ -24,7 +28,7 @@ const options = {
   nav3justifyContent: "flex-start",
   nav4justifyContent: "flex-start",
   link1ColorHover: "#eb4034",
-  link1Margin: "1vmax", 
+  link1Margin: "1vmax",
   profileIconUrl: "/login",
   profileIconColor: "rgba(35, 35, 35,0.8)",
   searchIconColor: "rgba(35, 35, 35,0.8)",
@@ -36,7 +40,16 @@ const options = {
 };
 
 const Header = () => {
-  return <ReactNavbar {...options} />;
+  return <ReactNavbar
+    {...options}
+    profileIcon="true"
+    ProfileIconElement={AccountCircleIcon}
+    searchIcon="true"
+    SearchIconElement={SearchIcon}
+    cartIcon="true"
+    CartIconElement={ShoppingCartIcon}
+    searchIconSize="8vmax"
+  />;
 };
 
 export default Header;
