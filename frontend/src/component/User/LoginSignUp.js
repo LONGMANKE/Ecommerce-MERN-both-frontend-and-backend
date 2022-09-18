@@ -1,6 +1,9 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
+import { Link } from "react-router-dom";
+import MailOutlineIcon from '@mui/icons-material/MailOutline'; 
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 
 const LoginSignUp = () => {
@@ -8,13 +11,22 @@ const LoginSignUp = () => {
     const loginTab = useRef(null);
     const registerTab = useRef(null); 
     const switcherTab = useRef(null);
+
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const loginSubmit = (e) => {
+      console.log("Form submitted")
+      // e.preventDefault();
+      // dispatch(login(loginEmail, loginPassword));
+    };
     
     const switchTabs = (e, tab) => {
         if (tab === "login") {
           switcherTab.current.classList.add("shiftToNeutral");
           switcherTab.current.classList.remove("shiftToRight");
     
-          registerTab.current.classList.remove("shiftToNeutralForm");
+          registerTab.current.classList.remove("shiftToNeutralForm"); 
           loginTab.current.classList.remove("shiftToLeft");
         }
         if (tab === "register") {
