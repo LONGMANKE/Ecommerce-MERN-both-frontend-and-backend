@@ -6,6 +6,7 @@ import {  getProductDetails } from "../../actions/productAction"
 import ReactStars from "react-rating-stars-component"
 import ReviewCard from "./ReviewCard.js";
 import Loader from '../layout/Loader/Loader';
+import MetaData from "../layout/MetaData";
 // import { useAlert } from "react-alert";
 // import {useParams} from "react-router-dom"
 
@@ -43,6 +44,7 @@ const ProductDetails = ({ match }) => {
         <Loader />
       ) : (
         <Fragment>
+            <MetaData title={`${product.name} -- ECOMMERCE`} />
           <div className='ProductDetails'>
             <div>
 

@@ -3,7 +3,6 @@ import { ReactNavbar } from "overlay-navbar";
 import logo from "../../../images/logo.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
-
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const options = {
@@ -30,6 +29,8 @@ const options = {
   link1ColorHover: "#eb4034",
   link1Margin: "1vmax",
   profileIconUrl: "/login",
+  searchIconUrl: "/search",
+  cartIconUrl: "/cart",
   profileIconColor: "rgba(35, 35, 35,0.8)",
   searchIconColor: "rgba(35, 35, 35,0.8)",
   cartIconColor: "rgba(35, 35, 35,0.8)",
@@ -43,12 +44,14 @@ const Header = () => {
   return <ReactNavbar
     {...options}
     profileIcon="true"
-    ProfileIconElement={AccountCircleIcon}
+    ProfileIconElement={AccountCircleIcon }
     searchIcon="true"
     SearchIconElement={SearchIcon}
     cartIcon="true"
     CartIconElement={ShoppingCartIcon}
-    searchIconSize="8vmax"
+    SearchIconSize="large"
+    cartIconSize="2vmax"
+    fontSize="large"
   />;
 };
 
