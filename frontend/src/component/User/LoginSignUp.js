@@ -6,8 +6,20 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
 
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, login, register } from "../../actions/userAction";
+import { useAlert } from "react-alert";
 
-const LoginSignUp = () => {
+
+
+
+const LoginSignUp = ({history, location}) => {
+  const dispatch = useDispatch();
+  // const alert = useAlert();
+
+  const {loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   const loginTab = useRef(null);
   const registerTab = useRef(null);
@@ -27,9 +39,10 @@ const LoginSignUp = () => {
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
   const loginSubmit = (e) => {
-    console.log("Form submitted")
-    // e.preventDefault();
-    // dispatch(login(loginEmail, loginPassword));
+    // console.log("Form submitted")
+    //reload after entering pass and email
+    e.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
   };
   const registerSubmit = (e) => {
     e.preventDefault();
@@ -61,6 +74,18 @@ const LoginSignUp = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   }; 
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
+
+  useEffect(() => {
+    // if (error) {
+    //   alert.error(error);
+    //   dispatch(clearErrors());
+    // }
+
+    if (isAuthenticated) {
+      history.push(redirect);
+    }
+  }, [dispatch, history, isAuthenticated, redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -80,6 +105,7 @@ const LoginSignUp = () => {
   }
   return (
     <Fragment>
+      {loading? <Loader/>:<Fragment>
       <div className="LoginSignUpContainer">
         <div className="LoginSignUpBox">
           <div>
@@ -168,6 +194,7 @@ const LoginSignUp = () => {
       </div>
 
 
+    </Fragment>}
     </Fragment>
   )
 }
