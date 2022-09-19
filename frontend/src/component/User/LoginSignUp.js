@@ -7,10 +7,8 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, login, register } from "../../actions/userAction";
-import { useAlert } from "react-alert";
-
-
+import {  login, register } from "../../actions/userAction";
+// import { useAlert } from "react-alert";
 
 
 const LoginSignUp = ({history, location}) => {
@@ -53,8 +51,8 @@ const LoginSignUp = ({history, location}) => {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-    // dispatch(register(myForm));
-    console.log("Signup Form submitted")
+    dispatch(register(myForm));
+    // console.log("Signup Form submitted")
 
   };
 
