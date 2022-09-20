@@ -21,18 +21,20 @@ import Loader from '../layout/Loader/Loader';
 const Home = () => {
   // const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading,  products } = useSelector((state) => state.products);
+  const { loading,products } = useSelector((state) => state.products);
 
   useEffect(() => { 
     // if (error) { 
+      
     //   return alert.error(error);
+      
     // }
     dispatch(getProduct());
   },
     [dispatch]);
 
   return (
-    <Fragment>
+    <Fragment> 
 
       {loading ? (
         <Loader />

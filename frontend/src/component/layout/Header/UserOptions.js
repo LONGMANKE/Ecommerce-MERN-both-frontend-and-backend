@@ -6,12 +6,14 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from "@mui/icons-material/Person";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useHistory } from "react-router-dom";  
+import { useAlert } from "react-alert";
 
 const UserOptions = ({ user }) => {
     const [open, setOpen] = useState(false);
     const history = useHistory();    
+    const alert = useAlert();
 
     const options = [
         { icon: <ListAltIcon />, name: "Orders", func: orders },
@@ -45,7 +47,7 @@ const UserOptions = ({ user }) => {
         // dispatch(logout());   
         alert.success("Logout Successfully");
     }
-
+ 
     return (
         <Fragment>
             {/* <Backdrop open={open} style={{ zIndex: "10" }} /> */}
@@ -56,7 +58,7 @@ const UserOptions = ({ user }) => {
                 style={{ zIndex: "11" }}
                 open={open}
                 direction="down"
-                className="speedDial"
+                className="speedDial" 
                 icon={
                     <img
                         className="speedDialIcon"
