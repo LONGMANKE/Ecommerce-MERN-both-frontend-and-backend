@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./UpdateProfile.css";
 import Loader from "../layout/Loader/Loader";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import FaceIcon from "@material-ui/icons/Face";
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
@@ -59,8 +59,7 @@ const UpdateProfile = ({ history }) => {
 
     if (isUpdated) {
       alert.success("Profile Updated Successfully");
-      dispatch(loadUser());
-
+      dispatch(loadUser()); 
       history.push("/account");
 
       dispatch({

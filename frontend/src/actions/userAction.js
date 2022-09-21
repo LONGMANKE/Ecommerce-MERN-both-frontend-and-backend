@@ -91,7 +91,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch({
       type: UPDATE_PROFILE_FAIL,
       payload: error.response.data.message,
-    });
+    }); 
   }
 };
 

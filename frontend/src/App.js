@@ -15,7 +15,7 @@ import UserOptions from "./component/layout/Header/UserOptions.js";
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile.js";
 import ProtectedRoute from './component/Route/ProtectedRoute';
-import UpdateProfile from "./component/User/UpdateProfile";
+import UpdateProfile from "./component/User/UpdateProfile.js";
 
 function App() {
 
