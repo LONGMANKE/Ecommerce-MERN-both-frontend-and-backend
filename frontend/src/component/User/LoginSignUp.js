@@ -4,18 +4,19 @@ import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import FaceIcon from '@mui/icons-material/Face';
+import FaceIcon from '@mui/icons-material/Face'
+import { clearErrors } from "../../actions/userAction";
 
 import { useDispatch, useSelector } from "react-redux";
 import {  login, register } from "../../actions/userAction";
-// import { useAlert } from "react-alert";
+import { useAlert } from "react-alert";
 
 
 const LoginSignUp = ({history, location}) => {
   const dispatch = useDispatch();
-  // const alert = useAlert();
+  const alert = useAlert();
 
-  const {loading, isAuthenticated } = useSelector(
+  const {loading, isAuthenticated, error } = useSelector(
     (state) => state.user
   );
 
@@ -75,15 +76,15 @@ const LoginSignUp = ({history, location}) => {
   const redirect = location.search ? location.search.split("=")[1] : "/account";
 
   useEffect(() => {
-    // if (error) {
-    //   alert.error(error);
-    //   dispatch(clearErrors());
-    // }
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
 
     if (isAuthenticated) {
       history.push(redirect);
     }
-  }, [dispatch, history, isAuthenticated, redirect]);
+  }, [dispatch, history,error, alert, isAuthenticated, redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
