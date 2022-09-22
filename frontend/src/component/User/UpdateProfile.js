@@ -8,7 +8,7 @@ import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 import MetaData from "../layout/MetaData";
-
+ 
 const UpdateProfile = ({ history }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
