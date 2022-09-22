@@ -1,13 +1,13 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 // import Carousel from "react-material-ui-carousel"
 import "./ProductDetails.css"
 import { useSelector, useDispatch } from "react-redux"
-import {  getProductDetails } from "../../actions/productAction"
+import {  clearErrors, getProductDetails } from "../../actions/productAction"
 import ReactStars from "react-rating-stars-component"
 import ReviewCard from "./ReviewCard.js";
 import Loader from '../layout/Loader/Loader';
 import MetaData from "../layout/MetaData";
-// import { useAlert } from "react-alert";
+import { useAlert } from "react-alert";
 // import {useParams} from "react-router-dom"
 
 
@@ -15,28 +15,44 @@ import MetaData from "../layout/MetaData";
 
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
-  // const alert = useAlert();
+  const alert = useAlert();
 
 
-  const {  loading,  product } = useSelector((state) => state.productDetails);
+  const {  loading,error, product } = useSelector((state) => state.productDetails);
   useEffect(() => {
-    dispatch(getProductDetails(match.params.id));
-  // const { id } = useParams();
-  // dispatch(getProductDetails(id));
-
-    // if(error){ 
-    //   alert.error(error);
-    //   dispatch(clearErrors())
-    // }
-  }, [dispatch, match.params.id]);
   
+
  
+
+    if(error){ 
+      alert.error(error);
+      dispatch(clearErrors())
+    }
+    dispatch(getProductDetails(match.params.id));
+
+  }, [dispatch, match.params.id,error,alert ]);
+  
   const options = {
     size: "large",  
     value: product.ratings,
     readOnly: true,
     precision: 0.5,
   };
+
+
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decreaseQuantity = () => {
+    // if (1 >= quantity) return;
+
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+
 
   return (
     <Fragment>
@@ -75,10 +91,10 @@ const ProductDetails = ({ match }) => {
               <div className="detailsBlock-3">
                 <h1>{`KSH ${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
-                  <div className="detailsBlock-3-1-1">
-                    <button >-</button>
-                    <input value="1" type="number" />
-                    <button >+</button>
+                <div className="detailsBlock-3-1-1">
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type="number" value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button>
                     Add to Cart

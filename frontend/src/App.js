@@ -3,7 +3,7 @@ import Header from "./component/layout/Header/Header.js"
 import Footer from "./component/layout/Footer/Footer.js"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import WebFont from "webfontloader"
-import React from 'react';
+import React from 'react';  
 import Home from "./component/Home/Home.js"
 import ProductDetails from "./component/Product/ProductDetails.js"
 import Products from "./component/Product/Products.js"
@@ -13,12 +13,13 @@ import store from "./Store"
 import { loadUser } from './actions/userAction';
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import { useSelector } from "react-redux";
-import Profile from "./component/User/Profile.js";
+import Profile from "./component/User/Profile.js";  
 import ProtectedRoute from './component/Route/ProtectedRoute';
 import UpdateProfile from "./component/User/UpdateProfile.js";
 import UpdatePassword from "./component/User/UpdatePassword.js";
 import ForgotPassword from './component/User/ForgotPassword.js';
 import ResetPassword from "./component/User/ResetPassword.js";
+import Cart from "./component/Cart/Cart.js";
 
 
 function App() {
@@ -34,12 +35,12 @@ function App() {
     store.dispatch(loadUser());
 
     // getStripeApiKey();
-
+ 
   }, [])
 
-
+ 
   return (
-    <Router>
+    <Router> 
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Route exact path="/" component={Home} />
@@ -53,7 +54,8 @@ function App() {
       <Route exact path="/password/forgot" component={ForgotPassword} />
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <Route exact path="/login" component={LoginSignUp} />
-      <Footer />
+      <Route exact path="/cart" component={Cart} />
+      <Footer /> 
     </Router>
     
   );
