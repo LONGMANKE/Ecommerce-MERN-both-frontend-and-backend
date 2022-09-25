@@ -8,30 +8,15 @@ import ReviewCard from "./ReviewCard.js";
 import Loader from '../layout/Loader/Loader';
 import MetaData from "../layout/MetaData";
 import { useAlert } from "react-alert";
-// import {useParams} from "react-router-dom"
+import { addItemsToCart } from "../../actions/cartActions";
 
-
-// import { useParams } from "react-router-dom";
 
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
-
-
-  const {  loading,error, product } = useSelector((state) => state.productDetails);
-  useEffect(() => {
-  
-
+  const alert = useAlert();  
  
 
-    if(error){ 
-      alert.error(error);
-      dispatch(clearErrors())
-    }
-    dispatch(getProductDetails(match.params.id));
-
-  }, [dispatch, match.params.id,error,alert ]);
-  
+  const {  loading,error, product } = useSelector((state) => state.productDetails);
   const options = {
     size: "large",  
     value: product.ratings,
@@ -42,17 +27,37 @@ const ProductDetails = ({ match }) => {
 
   const [quantity, setQuantity] = useState(1);
 
+ 
   const increaseQuantity = () => {
+    if (product.Stock <= quantity) return;
+
     const qty = quantity + 1;
     setQuantity(qty);
   };
+
   const decreaseQuantity = () => {
-    // if (1 >= quantity) return;
+    if (1 >= quantity) return;
 
     const qty = quantity - 1;
     setQuantity(qty);
   };
 
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(match.params.id, quantity));
+    alert.success("Item Added To Cart");
+  };
+
+  useEffect(() => { 
+    if(error){ 
+      alert.error(error);
+      dispatch(clearErrors())
+    }
+    dispatch(getProductDetails(match.params.id));
+
+  }, [dispatch, match.params.id,error,alert ]);
+  
+  
 
   return (
     <Fragment>
@@ -63,7 +68,6 @@ const ProductDetails = ({ match }) => {
             <MetaData title={`${product.name} -- ECOMMERCE`} />
           <div className='ProductDetails'>
             <div>
-
               {product.images && [product.images].map((item, i) => (
                 <img
                   className="CarouselImage"
@@ -96,7 +100,7 @@ const ProductDetails = ({ match }) => {
                     <input readOnly type="number" value={quantity} />
                     <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button>
+                  <button onClick={addToCartHandler}>
                     Add to Cart
                   </button>
                 </div>

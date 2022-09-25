@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./Cart.css";
-import CartItemCard from "./CartItemCard.js";
+import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartActions";
 import { Typography } from "@material-ui/core";
