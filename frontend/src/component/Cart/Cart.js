@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./Cart.css";
-import CartItemCard from "./CartItemCard";
+import CartItemCard from "./CartItemCard.js";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartActions";
 import { Typography } from "@material-ui/core";
@@ -40,7 +40,6 @@ const Cart = ({ history }) => {
       {cartItems.length === 0 ? (
         <div className="emptyCart">
           <RemoveShoppingCartIcon />
-
           <Typography>No Product in Your Cart</Typography>
           <Link to="/products">View Products</Link>
         </div>
@@ -78,7 +77,7 @@ const Cart = ({ history }) => {
                       +
                     </button>
                   </div>
-                  <p className="cartSubtotal">{`₹${
+                  <p className="cartSubtotal">{`KSH${
                     item.price * item.quantity
                   }`}</p>
                 </div>
@@ -88,7 +87,7 @@ const Cart = ({ history }) => {
               <div></div>
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
-                <p>{`₹${cartItems.reduce(
+                <p>{`KSH${cartItems.reduce(
                   (acc, item) => acc + item.quantity * item.price,
                   0
                 )}`}</p>

@@ -42,11 +42,11 @@ const ProductDetails = ({ match }) => {
     setQuantity(qty);
   };
 
-
   const addToCartHandler = () => {
     dispatch(addItemsToCart(match.params.id, quantity));
     alert.success("Item Added To Cart");
   };
+
 
   useEffect(() => { 
     if(error){ 
