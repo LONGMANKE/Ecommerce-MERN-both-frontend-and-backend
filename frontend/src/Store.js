@@ -22,9 +22,9 @@ const reducer = combineReducers({
       cartItems: localStorage.getItem("cartItems")
         ? JSON.parse(localStorage.getItem("cartItems"))
         : [],
-      // shippingInfo: localStorage.getItem("shipping Info")
-      //   ? JSON.parse(localStorage.getItem("shippingInfo"))
-      //   : {},
+      shippingInfo: localStorage.getItem("shipping Info")
+        ? JSON.parse(localStorage.getItem("shippingInfo"))
+        : {},
     },
   };
   

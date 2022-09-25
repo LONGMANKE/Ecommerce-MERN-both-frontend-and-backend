@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react-router": "^5.1.18",
     "axios": "^0.27.2",
+    "country-state-city": "^3.1.2",
     "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
@@ -59,5 +60,4 @@
     ]
   },
   "proxy": "http://localhost:4000"
-
 }
