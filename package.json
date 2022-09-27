@@ -30,6 +30,7 @@
     "react-alert-template-basic": "^1.0.2",
     "react-router-dom": "^6.3.0",
     "smtp": "^0.1.4",
+    "stripe": "^10.12.0-beta.1",
     "validator": "^13.7.0"
   }
 }
