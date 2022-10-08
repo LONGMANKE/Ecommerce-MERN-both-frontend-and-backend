@@ -6,7 +6,6 @@ const CartItemCard = ({ item, deleteCartItems }) => {
   return (
     <div className="CartItemCard">
       <img src={item.image} alt="ssa" />
-      {/* {item.images.map(images => <img src={images.url} alt="ssa" />)} */}
       <div>
         <Link to={`/product/${item.product}`}>{item.name}</Link>
         <span>{`Price: KSH${item.price}`}</span>
