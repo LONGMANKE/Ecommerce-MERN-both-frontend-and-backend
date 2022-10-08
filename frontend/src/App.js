@@ -31,7 +31,7 @@ import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js"; 
 import Dashboard from "./component/Admin/Dashboard.js";
- 
+import ProductList from "./component/Admin/ProductList.js";
 function App() {
 
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -85,10 +85,16 @@ function App() {
       <ProtectedRoute exact path="/orders" component={MyOrders} />
       <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       <ProtectedRoute
-          
+          isAdmin={true}
           exact
           path="/admin/dashboard"
           component={Dashboard}
+        />
+         <ProtectedRoute
+          exact
+          path="/admin/products"
+          isAdmin={true}
+          component={ProductList}
         />
 
       <Footer />
