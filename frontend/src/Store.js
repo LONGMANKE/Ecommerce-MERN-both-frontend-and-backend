@@ -21,6 +21,8 @@ const reducer = combineReducers({
   newProduct: newProductReducer,
   users: allUsersReducer,
  AllOrders:  allOrdersReducer,
+ product: productReducer,
+
 
 });
   
