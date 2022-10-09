@@ -17,36 +17,38 @@ const cloudinary = require("cloudinary");
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     let images = [];
-  
+
     if (typeof req.body.images === "string") {
-      images.push(req.body.images);
+        images.push(req.body.images);
     } else {
-      images = req.body.images;
+        images = req.body.images;
     }
-  
-    const imagesLinks = [];
-  
+
+    const avatar = [];
+
     for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "products",
-      });
-  
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
+        const cloud = await cloudinary.v2.uploader.upload(images[i], {
+            folder: "avatars",
+            width: 150,
+            crop: "scale",
+        });
+
+        avatar.push({
+            public_id: cloud.public_id,
+            url: cloud.secure_url,
+        });
     }
-  
-    req.body.images = imagesLinks;
+
+    req.body.images = avatar;
     req.body.user = req.user.id;
-  
+
     const product = await Product.create(req.body);
-  
+
     res.status(201).json({
-      success: true,
-      product,
+        success: true,
+        product,
     });
-  });
+});
 
 // Get All Products
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
@@ -68,7 +70,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     apiFeature.pagination(resultPerPage);
     products = await apiFeature.query.clone();
 
-    
+
 
 
     res.status(200).json({
@@ -125,12 +127,12 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
 // Get All Product (Admin)
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
     const products = await Product.find();
-  
+
     res.status(200).json({
-      success: true,
-      products,
+        success: true,
+        products,
     });
-  });
+});
 //Update Product -- Admin
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
