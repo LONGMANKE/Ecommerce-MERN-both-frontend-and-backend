@@ -9,7 +9,7 @@ import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
 const OrderDetails = ({ match }) => {
-  const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const {  error, loading } = useSelector((state) => state.orderDetails);
 
   const dispatch = useDispatch();
   const alert = useAlert();

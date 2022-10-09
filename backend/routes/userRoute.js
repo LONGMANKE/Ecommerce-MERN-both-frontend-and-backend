@@ -12,11 +12,11 @@ router.route("/logout").get(logout);
 router.route("/me").get(isAuthenticatedUser, getUserDetails);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
-router.route("/admin/users").get(isAuthenticatedUser, authorizedRoles("Admin"), getAllUsers);
+router.route("/admin/users").get(isAuthenticatedUser, authorizedRoles("admin"), getAllUsers);
 router.route("/admin/user/:id")
-    .get(isAuthenticatedUser, authorizedRoles("Admin"), getSingleUser)
-    .put(isAuthenticatedUser, authorizedRoles("Admin"), updateUserRole)
-    .delete(isAuthenticatedUser, authorizedRoles("Admin"), deleteUser);
+    .get(isAuthenticatedUser, authorizedRoles("admin"), getSingleUser)
+    .put(isAuthenticatedUser, authorizedRoles("admin"), updateUserRole)
+    .delete(isAuthenticatedUser, authorizedRoles("admin"), deleteUser);
 
 
 
