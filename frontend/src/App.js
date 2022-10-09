@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./component/layout/Header/Header.js"
 import Footer from "./component/layout/Footer/Footer.js"
 import { BrowserRouter as Router, Route } from "react-router-dom"
-import WebFont from "webfontloader" 
+import WebFont from "webfontloader"
 import React from 'react';
 import Home from "./component/Home/Home.js"
 import ProductDetails from "./component/Product/ProductDetails.js"
@@ -26,13 +26,17 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
 import axios from "axios";
 import Payment from "./component/Cart/Payment.js"
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js"; 
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
-import OrderDetails from "./component/Order/OrderDetails.js"; 
+import OrderDetails from "./component/Order/OrderDetails.js";
 import Dashboard from "./component/Admin/Dashboard.js";
 import ProductList from "./component/Admin/ProductList.js";
 import NewProduct from "./component/Admin/NewProduct.js";
+import updateProduct from "./component/Admin/UpdateProduct.js";
+import OrderList from "./component/Admin/OrderList.js";
+import ProcessOrder from "./component/Admin/ProcessOrder.js";
+import UsersList from "./component/Admin/UsersList.js";
 function App() {
 
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -54,9 +58,9 @@ function App() {
     store.dispatch(loadUser());
 
     getStripeApiKey();
- 
+
   }, [])
- 
+
 
   return (
     <Router>
@@ -86,26 +90,50 @@ function App() {
       <ProtectedRoute exact path="/orders" component={MyOrders} />
       <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       <ProtectedRoute
-          isAdmin={true}
+        isAdmin={true}
+        exact
+        path="/admin/dashboard"
+        component={Dashboard}
+      />
+      <ProtectedRoute
+        exact
+        path="/admin/products"
+        isAdmin={true}
+        component={ProductList}
+      />
+      <ProtectedRoute
+        exact
+        path="/admin/product"
+        isAdmin={true}
+        component={NewProduct}
+      />
+
+      <ProtectedRoute
+        exact
+        path="/admin/product/:id"
+        isAdmin={true}
+        component={updateProduct}
+      />
+      <ProtectedRoute
           exact
-          path="/admin/dashboard"
-          component={Dashboard}
+          path="/admin/orders"
+          isAdmin={true}
+          component={OrderList}
         />
          <ProtectedRoute
           exact
-          path="/admin/products"
+          path="/admin/order/:id"
           isAdmin={true}
-          component={ProductList}
+          component={ProcessOrder}
         />
-        <ProtectedRoute
+         <ProtectedRoute
           exact
-          path="/admin/product"
+          path="/admin/users"
           isAdmin={true}
-          component={NewProduct}
+          component={UsersList}
         />
-
       <Footer />
-    </Router> 
+    </Router>
 
   );
 }

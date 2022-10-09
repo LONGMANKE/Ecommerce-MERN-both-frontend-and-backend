@@ -131,33 +131,87 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
       products,
     });
   });
-//Update Product -- Admin
+// //Update Product -- Admin
+// exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
+//     let product = await Product.findById(req.params.id);
+//     /* if (!product) {
+//             return res.status(500).json({
+//                 success: false,
+//                 message: "Product not found"
+//             })
+//         } */
+
+//     if (!product) {
+//         return next(new ErrorHandler("Product not found, 404"));
+//     }
+//     {
+        
+//         product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+//             new: true,
+//             runValidators: true,
+//             useFindAndModify: false
+//         });
+//         res.status(200).json({
+//             success: true,
+//             product
+
+//         })
+//     }
+
+// });
+
+// Update Product -- Admin
+
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
-    /* if (!product) {
-            return res.status(500).json({
-                success: false,
-                message: "Product not found"
-            })
-        } */
-
+  
     if (!product) {
-        return next(new ErrorHandler("Product not found, 404"));
+      return next(new ErrorHander("Product not found", 404));
     }
-    {
-        product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false
+  
+    // Images Start Here
+    let images = [];
+  
+    if (typeof req.body.images === "string") {
+      images.push(req.body.images);
+    } else {
+      images = req.body.images;
+    }
+  
+    if (images !== undefined) {
+      // Deleting Images From Cloudinary
+      for (let i = 0; i < product.images.length; i++) {
+        await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+      }
+  
+      const imagesLinks = [];
+  
+      for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(images[i], {
+          folder: "products",
         });
-        res.status(200).json({
-            success: true,
-            product
-
-        })
+  
+        imagesLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        });
+      }
+  
+      req.body.images = imagesLinks;
     }
-
-});
+  
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+  
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  });
+  
 
 //Delete Product -- Admin
 
@@ -175,7 +229,17 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Product not found, 404"));
     }
     else {
-        product.remove()
+
+        // Deleting Images From Cloudinary
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+  }
+        await product.remove()
+
+
+
+
+
         res.status(201).json({
             success: true,
             message: "Product deleted successfully"
