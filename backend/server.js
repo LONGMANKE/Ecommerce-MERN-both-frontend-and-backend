@@ -1,6 +1,6 @@
 const app = require("./app");
 
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database")
 
@@ -9,12 +9,14 @@ const connectDatabase = require("./config/database")
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`);
     console.log(`The server is shutting down due to uncaught Promise rejection`);
-
     process.exit(1);
 });
 
 //config
-dotenv.config({ path: "backend/config/config.env" });
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({ path: "backend/config/config.env" });
+}
+// dotenv.config({ path: "backend/config/config.env" });
 
 //connecting with database
 connectDatabase();
