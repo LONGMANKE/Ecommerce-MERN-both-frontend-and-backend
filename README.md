@@ -4,7 +4,8 @@ Hi! My name is **mburu**,
 # Prerequisite
 
 1.  Must have basic knowledge of **Node**, **React**, **Express**, **MongoDB** . 
-
+# NB. 
+**most of the frontend in react have changed more sore in params and also history to useParams and useNavigate**
 # Install Dependencies
 
 **For Backend** - `npm i`
