@@ -41,5 +41,5 @@ _fill each filed with your info respectively_
 **LinkedIn** Click [Here](https://www.linkedin.com/in/mburu-njoroge-183840201/) **@LongmanKE**
 **Facebook** Click [Here](http://facebook.com/LONGMANKE) **@LongmanKE**
 
-## Link
-<iframe width="560" height="315" src="https://www.youtube.com/embed/AN3t-OmdyKA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+## The Whatsapp Link will be.
+https://youtu.be/AN3t-OmdyKA
